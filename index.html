@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV — ???> / ???</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+    @media (max-width: 600px) {
+
+  .photo-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .photo-row img {
+    width: 100px;
+    height: 133px;
+  }
+}
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:       #0B1426;
+    --navy-mid:   #152035;
+    --navy-light: #1E2E48;
+    --blue:       #4A9EFF;
+    --blue-dim:   #2C6FAD;
+    --silver:     #8B9BB4;
+    --fog:        #C4CDD8;
+    --white:      #F0F4FF;
+    --text:       #E2E8F5;
+    --text-muted: #8B9BB4;
+    --border:     rgba(74,158,255,0.15);
+    --tag-bg:     rgba(74,158,255,0.10);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'GmarketSans', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ── Language Toggle ── */
+  #lang-toggle {
+    position: fixed;
+    top: 24px;
+    right: 28px;
+    z-index: 999;
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  #lang-toggle button {
+    padding: 7px 18px;
+    border: none;
+    background: transparent;
+    color: var(--silver);
+    font-family: 'GmarketSans', 'Apple SD Gothic Neo', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+  }
+  #lang-toggle button.active {
+    background: var(--blue);
+    color: #fff;
+    border-radius: 30px;
+  }
+  #lang-toggle button:hover:not(.active) { color: var(--white); }
+
+  /* ── Language Visibility ── */
+  .lang-ko, .lang-en { transition: opacity 0.25s ease; }
+  body.lang-en .lang-ko { display: none; }
+  body.lang-ko .lang-en { display: none; }
+
+  /* ── Layout ── */
+  .wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+  }
+
+  /* ── Hero / Header ── */
+  header {
+    position: relative;
+    padding: 80px 0 56px;
+    overflow: hidden;
+  }
+  .lattice {
+    position: absolute;
+    inset: 0;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+  .header-inner { position: relative; z-index: 1; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--blue);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .name {
+    font-family: 'GmarketSans', 'Apple SD Gothic Neo', sans-serif;
+    font-size: clamp(42px, 7vw, 64px);
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .name-sub {
+    font-family: 'GmarketSans', 'Apple SD Gothic Neo', sans-serif;
+    font-style: italic;
+    font-size: clamp(18px, 3vw, 24px);
+    color: var(--blue);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 24px;
+  }
+  .contact-item {
+    font-size: 13.5px;
+    color: var(--silver);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .contact-item a { color: var(--blue); text-decoration: none; }
+  .contact-item a:hover { text-decoration: underline; }
+  .dot { color: var(--blue); }
+
+  /* ── Divider ── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0 36px;
+  }
+
+  /* ── Section ── */
+  section { margin-bottom: 52px; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--blue);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    display: block;
+    height: 1px;
+    flex: 1;
+    background: var(--border);
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 14px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(74,158,255,0.35); }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.4;
+  }
+  .card-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--blue);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .card-sub {
+    font-size: 13.5px;
+    color: var(--silver);
+    margin-bottom: 10px;
+  }
+  .card-body {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+  .card-body ul {
+    padding-left: 18px;
+    margin-top: 6px;
+  }
+  .card-body li { margin-bottom: 4px; }
+
+  /* ── Tags ── */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid rgba(74,158,255,0.22);
+    color: var(--blue);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Award badge ── */
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #4A9EFF22, #4A9EFF11);
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Skills Grid ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .skill-group {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .skill-group-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .skill-item {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    padding: 3px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .skill-item::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  /* ── Statement ── */
+  .statement {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--fog);
+    border-left: 2px solid var(--blue);
+    padding-left: 20px;
+  }
+
+  /* ── Info grid (basic info) ── */
+ .info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 28px;  /* 이 숫자 올리기 */
+  row-gap: 20px;
+}
+  .info-item {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+  .info-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  .info-value {
+    font-size: 14.5px;
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ── Footer ── */
+  footer {
+    margin-top: 60px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .wrapper { padding: 0 18px 60px; }
+    header { padding: 70px 0 40px; }
+    #lang-toggle { top: 16px; right: 16px; }
+    .card { padding: 18px 20px; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body class="lang-ko">
+
+<!-- Language Toggle -->
+<div id="lang-toggle">
+  <button id="btn-ko" class="active" onclick="setLang('ko')">한국어</button>
+  <button id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<!-- Lattice SVG Background -->
+<svg class="lattice" xmlns="http://www.w3.org/2000/svg" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;">
+  <defs>
+    <pattern id="lat" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="2" fill="#4A9EFF"/>
+      <line x1="30" y1="30" x2="60" y2="30" stroke="#4A9EFF" stroke-width="0.6"/>
+      <line x1="30" y1="30" x2="30" y2="60" stroke="#4A9EFF" stroke-width="0.6"/>
+      <line x1="30" y1="30" x2="60" y2="60" stroke="#4A9EFF" stroke-width="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#lat)"/>
+</svg>
+
+<div class="wrapper" style="position:relative;z-index:1;">
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="header-inner">
+      <p class="eyebrow lang-ko">첨단신소재공학과 · 소재 & AI 연구 지원</p>
+      <p class="eyebrow lang-en">Advanced Materials Engineering · Applicant for Materials &amp; AI Lab</p>
+
+      <h1 class="name lang-ko">전 주 언</h1>
+      <h1 class="name lang-en">???</h1>
+
+      <p class="name-sub lang-ko">신소재 × 인공지능</p>
+      <p class="name-sub lang-en">Materials Science × Artificial Intelligence</p>
+
+      <div class="contact-row">
+        <span class="contact-item"><span class="dot">✦</span> <a href="mailto:youremail@ajou.ac.kr">youremail@ajou.ac.kr</a></span>
+        <span class="contact-item"><span class="dot">✦</span> +82-10-0000-0000</span>
+        <span class="contact-item"><span class="dot">✦</span> <a href="https://github.com/yourgithub" target="_blank">github.com/yourgithub</a></span>
+        <span class="contact-item"><span class="dot">✦</span>
+          <span class="lang-ko">대한민국 서울특별시</span>
+          <span class="lang-en">Seoul, Republic of Korea</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── RESEARCH STATEMENT ── -->
+  <section>
+    <p class="section-label lang-ko">연구 관심사</p>
+    <p class="section-label lang-en">Research Statement</p>
+
+    <p class="statement lang-ko">
+      저는 머신러닝 기반의 재료 특성 예측과 데이터 기반 신소재 설계에 관심을 갖고 있습니다.
+      특히 그래프 신경망(GNN)을 활용한 결정 구조 예측, 고처리량 스크리닝을 통한 기능성 소재 발굴,
+      그리고 실험 데이터와 시뮬레이션을 결합한 멀티스케일 모델링에 흥미를 느낍니다.
+      실험적 직관과 계산 도구를 함께 사용하는 연구를 지향합니다.
+    </p>
+    <p class="statement lang-en">
+      My research interest lies at the intersection of machine learning and materials science,
+      specifically in property prediction, data-driven materials design, and high-throughput screening.
+      I am drawn to graph neural networks for crystal structure property mapping and multi-scale modeling
+      that bridges experimental observation with computational simulation.
+    </p>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── BASIC INFO ── -->
+  <section>
+    <p class="section-label lang-ko">기본 인적사항</p>
+    <p class="section-label lang-en">Personal Information</p>
+<div class="photo-row" style="display:flex; gap:42px; align-items:flex-start;">
+
+  <!-- 증명사진 -->
+  <img src="증명사진.jpg" alt="증명사진"
+    style="width:120px; height:160px; object-fit:cover;
+           border-radius:10px; border:1px solid var(--border);
+           flex-shrink:0;">
+
+    <div class="info-grid">
+      <div class="info-item">
+        <p class="info-label lang-ko">소속</p>
+        <p class="info-label lang-en">Affiliation</p>
+        <p class="info-value lang-ko">아주대학교 첨단신소재공학과</p>
+        <p class="info-value lang-en">Dept. of Advanced Materials Eng., AjouUniversity</p>
+      </div>
+      <div class="info-item">
+        <p class="info-label lang-ko">학년 / 학번</p>
+        <p class="info-label lang-en">Year / Student ID</p>
+        <p class="info-value">2학년 / 202520532</p>
+      </div>
+      <div class="info-item">
+        <p class="info-label lang-ko">학점 (전공)</p>
+        <p class="info-label lang-en">GPA (Major)</p>
+        <p class="info-value">4.07 / 4.5 &nbsp;<span style="color:var(--silver);font-size:13px;">(전공 4.23)</span></p>
+      </div>
+      <div class="info-item">
+        <p class="info-label lang-ko">예상 졸업</p>
+        <p class="info-label lang-en">Expected Graduation</p>
+        <p class="info-value">2028년 2월</p>
+      </div>
+      <div class="info-item">
+        <p class="info-label lang-ko">언어</p>
+        <p class="info-label lang-en">Languages</p>
+        <p class="info-value lang-ko">한국어 (모국어), 영어 (TOEIC 820)</p>
+        <p class="info-value lang-en">Korean (Native), English (TOEIC 820)</p>
+      </div>
+      <div class="info-item">
+        <p class="info-label lang-ko">포트폴리오</p>
+        <p class="info-label lang-en">Portfolio</p>
+<p class="info-value lang-ko"><a href="https://juniorjueon.github.io/jueon-portfolio/index.html" target="_blank" style="color:var(--blue);text-decoration:none;">포트폴리오 바로가기</a></p>
+<p class="info-value lang-en"><a href="https://juniorjueon.github.io/jueon-portfolio/index.html" target="_blank" style="color:var(--blue);text-decoration:none;">Portfolio Link</a></p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── EDUCATION ── -->
+  <section>
+    <p class="section-label lang-ko">학력</p>
+    <p class="section-label lang-en">Education</p>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">아주대학교 — 첨단신소재공학과 (학부 과정)</p>
+          <p class="card-title lang-en">Ajou University — B.Eng. in Advanced Materials Engineering</p>
+        </div>
+        <p class="card-meta">2025.03 — </p>
+      </div>
+      <p class="card-sub lang-ko">관련 수강 과목</p>
+      <p class="card-sub lang-en">Relevant Coursework</p>
+      <div class="tag-row">
+        <span class="tag">재료열역학</span>
+        <span class="tag">결정구조학</span>
+        <span class="tag">재료물성론</span>
+        <span class="tag">고분자재료</span>
+        <span class="tag">계산재료과학</span>
+        <span class="tag">머신러닝 개론</span>
+        <span class="tag">파이썬 프로그래밍</span>
+        <span class="tag">전자재료</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">한국디지털미디어고등학교 졸업(데이터분석 전공)</p>
+          <p class="card-title lang-en">Korea Digital Media High School — Graduated (Major in Data Analysis)</p>
+        </div>
+        <p class="card-meta">2023.02 — 2025.02</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── RESEARCH EXPERIENCE ── -->
+  <section>
+    <p class="section-label lang-ko">연구 참여 경험</p>
+    <p class="section-label lang-en">Research Experience</p>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">학부연구생 — 아주대 아주 연구실 (지도교수: ???)</p>
+          <p class="card-title lang-en">Undergraduate Researcher — 아주 Lab, 아주 Univ. (Advisor: Prof. XXX)</p>
+        </div>
+        <p class="card-meta">20XX.XX — 20XX.XX</p>
+      </div>
+      <div class="card-body">
+        <ul class="lang-ko">
+          <li>GNN 기반 페로브스카이트 소재의 밴드갭 예측 모델 개발에 참여</li>
+          <li>Materials Project 데이터베이스에서 약 5,000개 구조 데이터 수집 및 전처리</li>
+          <li>DFT 계산 결과와 모델 예측값 비교 분석, MAE 0.12 eV 달성</li>
+        </ul>
+        <ul class="lang-en">
+          <li>Contributed to developing a GNN-based bandgap prediction model for perovskite materials</li>
+          <li>Collected and preprocessed ~5,000 crystal structures from the Materials Project database</li>
+          <li>Benchmarked model predictions against DFT results, achieving MAE of 0.12 eV</li>
+        </ul>
+      </div>
+      <div class="tag-row">
+        <span class="tag">PyTorch Geometric</span>
+        <span class="tag">GNN</span>
+        <span class="tag">DFT</span>
+        <span class="tag">Python</span>
+        <span class="tag">VESTA</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">학부 졸업연구 — 소재 미세조직 이미지 분류 (진행 중)</p>
+          <p class="card-title lang-en">Senior Research Project — Microstructure Image Classification (Ongoing)</p>
+        </div>
+        <p class="card-meta">20XX.03 — 현재</p>
+      </div>
+      <div class="card-body">
+        <ul class="lang-ko">
+          <li>SEM 이미지에서 합금 미세조직 상(phase) 분류를 위한 CNN 모델 구현</li>
+          <li>데이터 증강 기법 적용으로 소량 데이터 문제 극복, 테스트 정확도 91% 달성</li>
+        </ul>
+        <ul class="lang-en">
+          <li>Implementing CNN-based classifier for alloy microstructure phase segmentation from SEM images</li>
+          <li>Applied data augmentation to overcome limited dataset size, achieving 91% test accuracy</li>
+        </ul>
+      </div>
+      <div class="tag-row">
+        <span class="tag">CNN</span>
+        <span class="tag">Transfer Learning</span>
+        <span class="tag">SEM</span>
+        <span class="tag">PyTorch</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── COMPETITIONS ── -->
+  <section>
+    <p class="section-label lang-ko">참여 대회 / 프로젝트</p>
+    <p class="section-label lang-en">Competitions &amp; Projects</p>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">제 ○회 전국 신소재 경진대회</p>
+          <p class="card-title lang-en">National Advanced Materials Design Competition (○th)</p>
+        </div>
+        <p class="card-meta">20XX.XX</p>
+      </div>
+      <p class="card-sub lang-ko">주최: 한국재료학회 | 팀원 3인</p>
+      <p class="card-sub lang-en">Host: Korean Institute of Materials Science | Team of 3</p>
+      <div class="card-body lang-ko">
+        머신러닝을 활용한 고엔트로피 합금 조성 최적화 주제로 참가. 베이지안 최적화 기법 적용하여
+        목표 경도·내산화성 조건을 만족하는 조성 후보군 5종 도출.
+      </div>
+      <div class="card-body lang-en">
+        Participated with a project on ML-assisted composition optimization of high-entropy alloys.
+        Applied Bayesian optimization to propose 5 candidate compositions meeting target hardness and oxidation resistance criteria.
+      </div>
+      <div class="badge lang-ko">🏆 우수상 (2위)</div>
+      <div class="badge lang-en">🏆 Excellence Award (2nd Place)</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">아주 해커톤 — 소재 데이터 분석 트랙</p>
+          <p class="card-title lang-en">아주 Hackathon — Materials Data Analytics Track</p>
+        </div>
+        <p class="card-meta">20XX.XX</p>
+      </div>
+      <p class="card-sub lang-ko">24시간 해커톤, 팀원 4인</p>
+      <p class="card-sub lang-en">24-hr hackathon, Team of 4</p>
+      <div class="card-body lang-ko">
+        공개 소재 데이터셋을 활용해 리튬이온 배터리 전극 소재의 용량 예측 모델을 구현.
+        Random Forest 앙상블 적용, R² = 0.88 달성.
+      </div>
+      <div class="card-body lang-en">
+        Built a capacity prediction model for Li-ion battery electrode materials using open-source datasets.
+        Applied Random Forest ensemble; achieved R² = 0.88.
+      </div>
+      <div class="tag-row">
+        <span class="tag">scikit-learn</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Matplotlib</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── PUBLICATIONS / PRESENTATIONS ── -->
+  <section>
+    <p class="section-label lang-ko">발표 / 논문</p>
+    <p class="section-label lang-en">Publications &amp; Presentations</p>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">한국재료학회 춘계학술대회 포스터 발표</p>
+          <p class="card-title lang-en">Poster Presentation — KIMS Spring Conference</p>
+        </div>
+        <p class="card-meta">20XX.XX</p>
+      </div>
+      <div class="card-body lang-ko">
+        ???>, 김아주, 이아주. "GNN을 이용한 산화물 페로브스카이트의 밴드갭 예측." 한국재료학회 20XX 춘계학술대회.
+      </div>
+      <div class="card-body lang-en">
+        G. Hong, ○. Kim, ○. Lee. "Bandgap Prediction of Oxide Perovskites Using Graph Neural Networks." KIMS Spring Conf., 20XX.
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── CERTIFICATIONS ── -->
+  <section>
+    <p class="section-label lang-ko">취득 자격증 및 어학</p>
+    <p class="section-label lang-en">Certifications &amp; Language</p>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">재료기사 (필기 합격 / 실기 준비 중)</p>
+          <p class="card-title lang-en">Engineer Materials Processing — Written Exam Passed</p>
+        </div>
+        <p class="card-meta">20XX.XX</p>
+      </div>
+      <p class="card-sub lang-ko">한국산업인력공단</p>
+      <p class="card-sub lang-en">Human Resources Development Service of Korea</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title">TOEIC 000</p>
+        </div>
+        <p class="card-meta">20XX.XX</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">컴퓨터활용능력 1급</p>
+          <p class="card-title lang-en">Computer Proficiency Level 1 (National Certification)</p>
+        </div>
+        <p class="card-meta">20XX.XX</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── SKILLS ── -->
+  <section>
+    <p class="section-label lang-ko">기술 스택 및 역량</p>
+    <p class="section-label lang-en">Technical Skills</p>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <p class="skill-group-title lang-ko">프로그래밍</p>
+        <p class="skill-group-title lang-en">Programming</p>
+        <p class="skill-item">Python</p>
+        <p class="skill-item">MATLAB</p>
+        <p class="skill-item">C (기초)</p>
+      </div>
+      <div class="skill-group">
+        <p class="skill-group-title lang-ko">머신러닝 / AI</p>
+        <p class="skill-group-title lang-en">ML / AI</p>
+        <p class="skill-item">PyTorch</p>
+        <p class="skill-item">scikit-learn</p>
+        <p class="skill-item">PyTorch Geometric</p>
+        <p class="skill-item">Weights &amp; Biases</p>
+      </div>
+      <div class="skill-group">
+        <p class="skill-group-title lang-ko">재료 계산 도구</p>
+        <p class="skill-group-title lang-en">Materials Tools</p>
+        <p class="skill-item">VESTA</p>
+        <p class="skill-item">Pymatgen</p>
+        <p class="skill-item">ASE</p>
+        <p class="skill-item">VASP (기초)</p>
+      </div>
+      <div class="skill-group">
+        <p class="skill-group-title lang-ko">데이터 / 기타</p>
+        <p class="skill-group-title lang-en">Data / Others</p>
+        <p class="skill-item">NumPy / Pandas</p>
+        <p class="skill-item">Matplotlib / Seaborn</p>
+        <p class="skill-item">Git / GitHub</p>
+        <p class="skill-item">LaTeX</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── ACTIVITIES ── -->
+  <section>
+    <p class="section-label lang-ko">교내외 활동</p>
+    <p class="section-label lang-en">Activities &amp; Leadership</p>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">AI 소재 스터디 그룹 — 창립 & 운영</p>
+          <p class="card-title lang-en">AI × Materials Study Group — Founder &amp; Organizer</p>
+        </div>
+        <p class="card-meta">20XX.XX — 현재</p>
+      </div>
+      <div class="card-body lang-ko">
+        학부생 8명으로 구성된 자체 스터디 운영. 매주 재료 ML 논문 리뷰 및 코드 구현 세션 진행.
+      </div>
+      <div class="card-body lang-en">
+        Organizing a self-run study group of 8 undergraduates. Weekly sessions on materials ML paper reviews and code implementation.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title lang-ko">학과 학생회 — 학술부장</p>
+          <p class="card-title lang-en">Dept. Student Council — Academic Affairs Director</p>
+        </div>
+        <p class="card-meta">20XX.XX — 20XX.XX</p>
+      </div>
+      <div class="card-body lang-ko">
+        학술 세미나 기획 및 학과 내 멘토링 프로그램 운영 담당.
+      </div>
+      <div class="card-body lang-en">
+        Organized academic seminars and managed the department peer-mentoring program.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REFERENCES ── -->
+  <section>
+    <p class="section-label lang-ko">추천인</p>
+    <p class="section-label lang-en">References</p>
+
+    <div class="card">
+      <div class="card-body lang-ko" style="color:var(--silver);">
+        요청 시 제출 가능합니다.
+      </div>
+      <div class="card-body lang-en" style="color:var(--silver);">
+        Available upon request.
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="lang-ko">마지막 업데이트: 20XX년 XX월 &nbsp;·&nbsp; ???></span>
+    <span class="lang-en">Last updated: Month 20XX &nbsp;·&nbsp; Gildong Hong</span>
+  </footer>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang === 'ko' ? 'ko' : 'en';
+  }
+</script>
+</body>
+</html>
